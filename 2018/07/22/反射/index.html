@@ -1,0 +1,84 @@
+<html>
+  <head>
+    <title>反射 - limaodeng</title>
+    <link href='/images/fav.png' rel='shortcut icon'>
+<link href='' rel='alternate' type='application/rss+xml'>
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/highlight.css">
+<link rel="stylesheet" href="/css/responsive.css">
+<script src="/js/jquery.js"></script>
+<script src="/js/basics.js"></script>
+<meta content='width=device-width, initial-scale=1.0, user-scalable=no' name='viewport'>
+<meta content='text/html; charset=utf-8' http-equiv='content-type'>
+
+
+  </head>
+  <body>
+    <header>
+  <a id='go-back-home' href='/'><img src='/images/scribble.png' alt='Home' width='53' height='59'></a>
+  <p>limaodeng</p>
+  <p>Welcome to my blog.</p>
+</header>
+
+    <div id='container'>
+      <div class='block'>
+  
+    <a class='main' href='/'>Home</a>
+  
+    <a class='main' href='/about'>About</a>
+  
+    <a class='main' href='/limaodengcode@gmail.com'>Email</a>
+  
+    <a class='main' href='https://github.com/limaodeng'>Github</a>
+  
+</div>
+
+      <section class='paging'>
+  
+  
+    <div class='right'>
+      <a href='/2018/07/21/MD5校验/'>
+        ›
+      </a>
+    </div>
+  
+</section>
+
+      <div class='content'>
+        <section class='post'>
+          <h1>
+            <div class='date'>2018-07-22</div>
+            反射
+          </h1>
+          <h3 id="1、Class类获取的方法"><a href="#1、Class类获取的方法" class="headerlink" title="1、Class类获取的方法"></a>1、Class类获取的方法</h3><h4 id="1）Class-forName-“类的全名称”"><a href="#1）Class-forName-“类的全名称”" class="headerlink" title="1）Class.forName(“类的全名称”);"></a>1）Class.forName(“类的全名称”);</h4><h4 id="2）Class-lt-类名-gt-clazz-类名-class"><a href="#2）Class-lt-类名-gt-clazz-类名-class" class="headerlink" title="2）Class&lt;类名&gt; clazz = 类名.class;"></a>2）Class&lt;类名&gt; clazz = 类名.class;</h4><h3 id="2、实例"><a href="#2、实例" class="headerlink" title="2、实例"></a>2、实例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">public void testMethod()&#123;</span><br><span class="line">		Class&lt;Person&gt; clazz = Person.class;</span><br><span class="line">		Method[] declaredMethods = clazz.getDeclaredMethods();</span><br><span class="line">		Stream.of(declaredMethods).forEach(dm-&gt;&#123;</span><br><span class="line">			System.out.println(dm.getName());</span><br><span class="line">			System.out.println(dm.getModifiers());</span><br><span class="line">		&#125;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">public void testPublicModifier()&#123;</span><br><span class="line">		try &#123;</span><br><span class="line">			Stream.of(Class.forName(&quot;com.gxnu.bigdata.study.reflect.bean.Person&quot;).getMethods()).forEach(System.out::println);</span><br><span class="line">		&#125; catch (ClassNotFoundException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">public void testReflect() throws Exception&#123;</span><br><span class="line">		Class&lt;Person&gt; clazz = Person.class;</span><br><span class="line">		//调用无参构造方法</span><br><span class="line">		Person person = clazz.newInstance();</span><br><span class="line">		Method method = clazz.getMethod(&quot;get&quot;, int.class,double.class,String.class);</span><br><span class="line">		String[] str = (String[]) method.invoke(person, 12,12_123_456.e-5,&quot;I&apos;m aaa.&quot;);</span><br><span class="line">		Stream.of(str).forEach(System.out::println);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">public void testStructor() throws Exception&#123;</span><br><span class="line">		Class&lt;Person&gt; pClass = Person.class;</span><br><span class="line">		Constructor&lt;Person&gt; con = pClass.getConstructor();</span><br><span class="line">		Person person = con.newInstance();</span><br><span class="line">		System.out.println(person.toString());</span><br><span class="line"></span><br><span class="line">		Constructor&lt;Person&gt; con2 = pClass.getConstructor(String.class,double.class);</span><br><span class="line">		Person person2 = con2.newInstance(&quot;wg&quot;,168);</span><br><span class="line">		System.out.println(person2.toString());</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+          <br>
+<p>limaodeng</p>
+<p><img src='/images/scribble3.png' alt='scribble'></p>
+
+        </section>
+      </div>
+      
+      <div class='block'>
+  
+    <a class='main' href='/'>Home</a>
+  
+    <a class='main' href='/about'>About</a>
+  
+    <a class='main' href='/limaodengcode@gmail.com'>Email</a>
+  
+    <a class='main' href='https://github.com/limaodeng'>Github</a>
+  
+</div>
+
+    </div>
+    <footer>
+  <span class='muted'>&copy; limaodeng. All Rights Reserved.</span><br>
+  <a href='https://github.com/saintwinkle/hexo-theme-scribble' class='muted'>built with Hexo using limaodeng theme</a>
+  <br>
+  <br>
+  <img src='/images/scribble2.png' alt='scribble' />
+</footer>
+
+  </body>
+</html>
