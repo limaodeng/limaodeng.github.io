@@ -1,0 +1,109 @@
+<html>
+  <head>
+    <title>安装Scala+Spark - limaodeng</title>
+    <link href='/images/fav.png' rel='shortcut icon'>
+<link href='' rel='alternate' type='application/rss+xml'>
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/highlight.css">
+<link rel="stylesheet" href="/css/responsive.css">
+<script src="/js/jquery.js"></script>
+<script src="/js/basics.js"></script>
+<meta content='width=device-width, initial-scale=1.0, user-scalable=no' name='viewport'>
+<meta content='text/html; charset=utf-8' http-equiv='content-type'>
+
+
+  </head>
+  <body>
+    <header>
+  <a id='go-back-home' href='/'><img src='/images/scribble.png' alt='Home' width='53' height='59'></a>
+  <p>limaodeng</p>
+  <p>limaodengcode@gmail.com</p>
+</header>
+
+    <div id='container'>
+      <div class='block'>
+  
+    <a class='main' href='/'>Home</a>
+  
+</div>
+
+      <section class='paging'>
+  
+    <div class='left'>
+      <a href='/2018/08/03/安装hadoop/'>
+        ‹
+      </a>
+    </div>
+  
+  
+    <div class='right'>
+      <a href='/2018/08/02/Centos7下安装JDK、MySQL和Tomcat/'>
+        ›
+      </a>
+    </div>
+  
+</section>
+
+      <div class='content'>
+        <section class='post'>
+          <h1>
+            <div class='date'>2018-08-03</div>
+            安装Scala+Spark
+          </h1>
+          <h2 id="一、-安装scala"><a href="#一、-安装scala" class="headerlink" title="一、 安装scala"></a>一、 安装scala</h2><ol>
+<li>下载 scala2.11.7 <a href="https://www.scala-lang.org/download/" target="_blank" rel="noopener">https://www.scala-lang.org/download/</a></li>
+<li>将下载的 scala2.11.7.tgz  放到/usr/local/ 并解压 tar zxvf </li>
+<li>scala2.11.7.tgz</li>
+<li>配置环境变量:</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/profile</span><br><span class="line">export SCALA_HOME=/usr/local/scala-2.11.7</span><br><span class="line">export PATH=$PATH:$SCALA_HOME/bin</span><br><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure>
+<ol start="5">
+<li>检测scala</li>
+</ol>
+<p>scala -version</p>
+<h2 id="二-spark部署安装"><a href="#二-spark部署安装" class="headerlink" title="二. spark部署安装"></a>二. spark部署安装</h2><ol>
+<li>下载 spark1.5  <a href="http://mirrors.cnnic.cn/apache/" target="_blank" rel="noopener">http://mirrors.cnnic.cn/apache/</a></li>
+<li>解压spark-1.5.0-bin-hadoop2.6.tgz </li>
+<li>配置环境变量:</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/profile</span><br><span class="line"></span><br><span class="line">export SPARK_HOME=/app/spark-1.5.0-bin-hadoop2.6</span><br><span class="line"></span><br><span class="line">export PATH=$PATH:$SCALA_HOME/bin:$SPARK_HOME/bin</span><br></pre></td></tr></table></figure>
+<p>source /etc/profile</p>
+<p>4.进入到spark 的conf 目录下:</p>
+<blockquote>
+<p>cp spark-env.sh.template spark-env.sh</p>
+</blockquote>
+<p>并在 spark-env.sh 文件后加：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">###jdk安装目录</span><br><span class="line"></span><br><span class="line">export JAVA_HOME=/usr/local/jdk1.7.0_79</span><br><span class="line"></span><br><span class="line">###scala安装目录</span><br><span class="line"></span><br><span class="line">export SCALA_HOME=/usr/local/scala-2.11.7</span><br><span class="line"></span><br><span class="line">###spark集群的master节点的ip</span><br><span class="line"></span><br><span class="line">export SPARK_MASTER_IP=192.168.1.104</span><br><span class="line"></span><br><span class="line">#export SPARK_WORKER_CORES=2</span><br><span class="line"></span><br><span class="line">#export SPARK_WORKER_MEMORY=4g</span><br><span class="line"></span><br><span class="line">#export SPARK_MASTER_IP=spark1             </span><br><span class="line"></span><br><span class="line">#export SPARK_MASTER_PORT=30111 </span><br><span class="line"></span><br><span class="line">#export SPARK_MASTER_WEBUI_PORT=30118 </span><br><span class="line"></span><br><span class="line">#export SPARK_WORKER_CORES=2 </span><br><span class="line"></span><br><span class="line">#export SPARK_WORKER_MEMORY=4g </span><br><span class="line"></span><br><span class="line">#export SPARK_WORKER_PORT=30333 </span><br><span class="line"></span><br><span class="line">#export SPARK_WORKER_WEBUI_PORT=30119 </span><br><span class="line"></span><br><span class="line">#export SPARK_WORKER_INSTANCES=1</span><br><span class="line"></span><br><span class="line">###指定的worker节点能够最大分配给Excutors的内存大小</span><br><span class="line"></span><br><span class="line">export SPARK_WORKER_MEMORY=1g</span><br><span class="line"></span><br><span class="line">###hadoop集群的配置文件目录</span><br><span class="line"></span><br><span class="line">export HADOOP_CONF_DIR=/usr/local/hadoop26/etc/hadoop</span><br><span class="line"></span><br><span class="line">###spark集群的配置文件目录</span><br><span class="line"></span><br><span class="line">export SPARK_CONF_DIR=/usr/local/spark-1.4.0-bin-hadoop2.6/conf</span><br><span class="line"></span><br><span class="line">#spark 性能调优</span><br><span class="line"></span><br><span class="line">export SPARK_DAEMON_JAVA_OPTS=&quot;-Xmx2g -XX:MaxPermSize=512M -XX:ReservedCodeCacheSize=512m&quot;</span><br></pre></td></tr></table></figure>
+<p>6.修改conf目录下面的slaves文件将worker节点都加进去</p>
+<p>7.启动spark:</p>
+<blockquote>
+<p>spark-shell    //启动scala命令行（预先配好环境变量）</p>
+<p>start-master.sh    //启动主节点（预先配好环境变量）</p>
+<p>start-slaves.sh    //启动从节点（预先配好环境变量）</p>
+</blockquote>
+<p>8.查看spark设置：<a href="http://ip:4040" target="_blank" rel="noopener">http://ip:4040</a></p>
+
+          <br>
+<p>limaodeng</p>
+<p><img src='/images/scribble3.png' alt='scribble'></p>
+
+        </section>
+      </div>
+      
+      <div class='block'>
+  
+    <a class='main' href='/'>Home</a>
+  
+</div>
+
+    </div>
+    <footer>
+  <span class='muted'>&copy; limaodeng. All Rights Reserved.</span><br>
+  <a href='https://github.com/saintwinkle/hexo-theme-scribble' class='muted'>built with Hexo using limaodeng theme</a>
+  <br>
+  <br>
+  <img src='/images/scribble2.png' alt='scribble' />
+</footer>
+
+  </body>
+</html>

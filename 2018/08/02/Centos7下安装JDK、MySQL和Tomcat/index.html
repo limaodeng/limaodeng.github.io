@@ -30,7 +30,7 @@
       <section class='paging'>
   
     <div class='left'>
-      <a href='/2018/08/03/安装hadoop/'>
+      <a href='/2018/08/03/安装Scala+Spark/'>
         ‹
       </a>
     </div>
@@ -50,7 +50,157 @@
             <div class='date'>2018-08-02</div>
             Centos7下安装JDK、MySQL和Tomcat
           </h1>
-          
+          <h3 id="一、Java的安装"><a href="#一、Java的安装" class="headerlink" title="一、Java的安装"></a>一、Java的安装</h3><p>1、查看当前Linux系统是否已经安装java</p>
+<p>输入 rpm -qa | grep java</p>
+<p>2、卸载两个openJDK</p>
+<p>输入rpm -e –nodeps 要卸载的软件</p>
+<p>3、上传jdk到linux</p>
+<p>4、安装jdk运行需要的插件yum install glibc.i686（选做）</p>
+<p>5、解压jdk到/usr/local下： tar –xvf jdk-7u71-linux-i586.tar.gz –C /usr/local</p>
+<p>6、配置jdk环境变量，打开/etc/profile配置文件:</p>
+<blockquote>
+<p>vi /etc/profile</p>
+</blockquote>
+<p>将下面配置拷贝进去:</p>
+<blockquote>
+<p>#set java environment</p>
+<p>JAVA_HOME=/usr/local/jdk1.8.0_60</p>
+<p>CLASSPATH=.:$JAVA_HOME/lib.tools.jar</p>
+<p>PATH=$JAVA_HOME/bin:$PATH</p>
+<p>export JAVA_HOME CLASSPATH PATH</p>
+</blockquote>
+<p>7、重新加载/etc/profile配置文件： </p>
+<blockquote>
+<p>source /etc/profile</p>
+</blockquote>
+<p>8、检查jdk是否安装成功：</p>
+<blockquote>
+<p>java  </p>
+<p>javac  </p>
+<p>java -version</p>
+</blockquote>
+<h3 id="二、Tomcat的安装"><a href="#二、Tomcat的安装" class="headerlink" title="二、Tomcat的安装"></a>二、Tomcat的安装</h3><p>1、上传Tomcat到linux上</p>
+<p>2、解压Tomcat到/usr/local下  tar –xvf apache-tomcat-8.5.32.tar.gz –C /usr/local</p>
+<p>3、开放Linux的对外访问的端口8080</p>
+<p>firewall-cmd –zone=public –add-port=8080/tcp –permanent</p>
+<p>或</p>
+<p>firewall-cmd –add-port=8080/tcp　即时打开，这里也可以是一个端口范围，如1000-2000/tcp</p>
+<p>firewall-cmd –permanent –add-port=8080/tcp　写入配置文件</p>
+<p>firewall-cmd –reload　重启防火墙</p>
+<p>4、启动关闭Tomcat</p>
+<p>cd /usr/local/apache-tomcat-8.5.32/bin</p>
+<p>进入tomcat的bin下启动：./startup.sh</p>
+<p>进入tomcat的bin下关闭：./shutdown.sh</p>
+<h3 id="三、安装MYsql"><a href="#三、安装MYsql" class="headerlink" title="三、安装MYsql"></a>三、安装MYsql</h3><p>安装环境：CentOS7 64位 MINI版，安装MySQL5.7</p>
+<p>1、配置YUM源</p>
+<p>在MySQL官网中下载YUM源rpm安装包：<a href="http://dev.mysql.com/downloads/repo/yum/" target="_blank" rel="noopener">http://dev.mysql.com/downloads/repo/yum/</a> </p>
+<p>MySQL YUM源下载地址</p>
+<p>下载mysql源安装包</p>
+<blockquote>
+<p>shell&gt; wget <a href="http://dev.mysql.com/get/mysql57-community-release-el7-8.noarch.rpm" target="_blank" rel="noopener">http://dev.mysql.com/get/mysql57-community-release-el7-8.noarch.rpm</a></p>
+</blockquote>
+<p>安装mysql源</p>
+<blockquote>
+<p>shell&gt; yum localinstall mysql57-community-release-el7-8.noarch.rpm</p>
+</blockquote>
+<p>检查mysql源是否安装成功</p>
+<blockquote>
+<p>shell&gt; yum repolist enabled | grep “mysql.<em>-community.</em>“</p>
+</blockquote>
+<p>2、安装MySQL</p>
+<blockquote>
+<p>shell&gt; yum install mysql-community-server</p>
+</blockquote>
+<p>3、启动MySQL服务</p>
+<blockquote>
+<p>shell&gt; systemctl start mysqld</p>
+</blockquote>
+<p>4、查看MySQL的启动状态</p>
+<blockquote>
+<p>shell&gt; systemctl status mysqld</p>
+</blockquote>
+<p>内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">● mysqld.service - MySQL Server</span><br><span class="line">   Loaded: loaded (/usr/lib/systemd/system/mysqld.service; disabled; vendor preset: disabled)</span><br><span class="line">   Active: active (running) since 五 2016-06-24 04:37:37 CST; 35min ago</span><br><span class="line"> Main PID: 2888 (mysqld)</span><br><span class="line">   CGroup: /system.slice/mysqld.service</span><br><span class="line">           └─2888 /usr/sbin/mysqld --daemonize --pid-file=/var/run/mysqld/mysqld.pid</span><br><span class="line"></span><br><span class="line">6月 24 04:37:36 localhost.localdomain systemd[1]: Starting MySQL Server...</span><br><span class="line">6月 24 04:37:37 localhost.localdomain systemd[1]: Started MySQL Server.</span><br></pre></td></tr></table></figure>
+<p>5、开机启动</p>
+<blockquote>
+<p>shell&gt; systemctl enable mysqld</p>
+<p>shell&gt; systemctl daemon-reload</p>
+</blockquote>
+<p>6、修改root本地登录密码</p>
+<p>mysql安装完成之后，在/var/log/mysqld.log文件中给root生成了一个默认密码。</p>
+<p>通过下面的方式找到root默认密码，然后登录mysql进行修改：</p>
+<blockquote>
+<p>shell&gt; grep ‘temporary password’ /var/log/mysqld.log</p>
+</blockquote>
+<p>root@localhost默认密码</p>
+<p>7、登录MySQL</p>
+<blockquote>
+<p>shell&gt; mysql -uroot -p</p>
+</blockquote>
+<p>8、修改MySQL登录密码</p>
+<blockquote>
+<p>mysql&gt; ALTER USER ‘root‘@’localhost’ IDENTIFIED BY ‘Test130!’; </p>
+</blockquote>
+<p>或</p>
+<blockquote>
+<p>mysql&gt; set password for ‘root‘@’localhost’=password(‘MyNewPass4!’); </p>
+</blockquote>
+<p>注意：mysql5.7默认安装了密码安全检查插件（validate_password），默认密码检查策略要求密码必须包含：大小写字母、数字和特殊符号，并且长度不能少于8位。否则会提示ERROR 1819 (HY000): Your password does not satisfy the current policy requirements错误。</p>
+<p>9、密码策略提示</p>
+<p>通过msyql环境变量可以查看密码策略的相关信息：</p>
+<blockquote>
+<p>mysql&gt; show variables like ‘%password%’;</p>
+</blockquote>
+<p>mysql密码策略 :</p>
+<p>validate_password_policy：密码策略，默认为MEDIUM策略 </p>
+<p>validate_password_dictionary_file：密码策略文件，策略为STRONG才需要 </p>
+<p>validate_password_length：密码最少长度 </p>
+<p>validate_password_mixed_case_count：大小写字符长度，至少1个 </p>
+<p>validate_password_number_count ：数字至少1个 </p>
+<p>validate_password_special_char_count：特殊字符至少1个 </p>
+<p>上述参数是默认策略MEDIUM的密码检查规则。</p>
+<p>共有以下几种密码策略：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">策略	检查规则</span><br><span class="line">0 or LOW	Length</span><br><span class="line">1 or MEDIUM	Length; numeric, lowercase/uppercase, and special characters</span><br><span class="line">2 or STRONG	Length; numeric, lowercase/uppercase, and special characters; dictionary file</span><br></pre></td></tr></table></figure>
+<p>MySQL官网密码策略详细说明：<a href="http://dev.mysql.com/doc/refman/5.7/en/validate-password-options-variables.html#sysvar_validate_password_policy" target="_blank" rel="noopener">http://dev.mysql.com/doc/refman/5.7/en/validate-password-options-variables.html#sysvar_validate_password_policy</a></p>
+<p>修改密码策略:</p>
+<p>在/etc/my.cnf文件添加validate_password_policy配置，指定密码策略</p>
+<p>选择0（LOW），1（MEDIUM），2（STRONG）其中一种，选择2需要提供密码字典文件</p>
+<p>validate_password_policy=0</p>
+<p>9、如果不需要密码策略，添加my.cnf文件中添加如下配置禁用即可：<br>   validate_password = off</p>
+<p>10、重新启动mysql服务使配置生效：<br>    systemctl restart mysqld</p>
+<p>11、添加远程登录用户</p>
+<p>默认只允许root帐户在本地登录，如果要在其它机器上连接mysql，必须修改root允许远程连接，或者添加一个允许远程连接的帐户，为了安全起见，我添加一个新的帐户：</p>
+<blockquote>
+<p>mysql&gt; GRANT ALL PRIVILEGES ON <em>.</em> TO ‘maoge‘@’%’ IDENTIFIED BY ‘Dlmao130!’ WITH GRANT OPTION;</p>
+</blockquote>
+<p>12、开启防火墙（参考博客地址：<a href="https://www.cnblogs.com/woshimrf/p/5880055.html）" target="_blank" rel="noopener">https://www.cnblogs.com/woshimrf/p/5880055.html）</a></p>
+<p>CentOS7的默认防火墙为firewall,且默认是不打开的。</p>
+<blockquote>
+<p>shell &gt; systemctl start firewalld 启动friewall</p>
+<p>shell &gt; systemctl status firewalld 查看firewall启动情况</p>
+<p>shell &gt; firewall-cmd –add-port=3306/tcp   开启3306端口<br>    firewall-cmd –permanent –add-port=3306/tcp    写入配置文件</p>
+<p>或者</p>
+<p>firewall-cmd –zone=public –add-port=3306/tcp –permanent </p>
+<p>shell &gt; firewalld  #firewall-cmd –reload 重启防火墙</p>
+<p>shell &gt;firewall-cmd –query-port=3306/tcp 检查3306端口是否已经开启</p>
+</blockquote>
+<p>如果显示yes,则表示防火墙已开启该端口。</p>
+<p>此时可以进行远程连接</p>
+<p>13、配置默认编码为utf8</p>
+<p>修改/etc/my.cnf配置文件，在[client]和[mysqld]下添加编码配置，如下所示：</p>
+<p>[client]</p>
+<p>default-character-set=utf8</p>
+<p>[mysqld]</p>
+<p>character-set-server=utf8</p>
+<p>重启mysql服务：service mysqld restart</p>
+<p>登录mysql：mysql -uroot -p</p>
+<p>查看编码方式： show variables like ‘character_set%’;</p>
+<p>14、默认配置文件路径： </p>
+<p>配置文件：/etc/my.cnf </p>
+<p>日志文件：/var/log//var/log/mysqld.log </p>
+<p>服务启动脚本：/usr/lib/systemd/system/mysqld.service </p>
+<p>socket文件：/var/run/mysqld/mysqld.pid</p>
+
           <br>
 <p>limaodeng</p>
 <p><img src='/images/scribble3.png' alt='scribble'></p>

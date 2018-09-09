@@ -37,7 +37,7 @@
   
   
     <div class='right'>
-      <a href='/2018/08/02/Centos7下安装JDK、MySQL和Tomcat/'>
+      <a href='/2018/08/03/安装Scala+Spark/'>
         ›
       </a>
     </div>
@@ -50,7 +50,155 @@
             <div class='date'>2018-08-03</div>
             安装hadoop
           </h1>
-          <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+          <p>1、解压安装hadoop</p>
+<blockquote>
+<p>[root@master local]# tar -zxvf hadoop-2.7.6.tar.gz -C /usr/local/</p>
+</blockquote>
+<p>2、将文档名hadoop-2.7.6.tar.gz 修改为 hadoop</p>
+<blockquote>
+<p> mv  hadoop-2.6.0-cdh5.12.1 hadoop</p>
+</blockquote>
+<p>3、修改core-site.xml</p>
+<blockquote>
+<p>[root@master hadoop]$ vi core-site.xml</p>
+</blockquote>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 指定HDFS中NameNode的地址 --&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">name</span>&gt;</span>fs.defaultFS<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">value</span>&gt;</span>hdfs://master:8020<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 指定hadoop运行时产生文件的存储目录 --&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">name</span>&gt;</span>hadoop.tmp.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">value</span>&gt;</span>/usr/local/hadoop/data/tmp<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>[root@master local]# cd hadoop</p>
+<p>[root@master hadoop]# cd etc/hadoop</p>
+</blockquote>
+<p>4、 修改hadoop-env.sh</p>
+<blockquote>
+<p>[admin@node21  hadoop]$ vi hadoop-env.sh </p>
+</blockquote>
+<p>修改 export JAVA_HOME=/usr/local/jdk1.8.0_60   //自己的jdk路径</p>
+<p>5 、修改hdfs-site.xml</p>
+<blockquote>
+<p>[root@master  hadoop]$ vi hdfs-site.xml</p>
+</blockquote>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 设置dfs副本数，不设置默认是3个   --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.replication<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>3<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 设置secondname的端口   --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.namenode.secondary.http-address<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>master:50090<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>6、 修改slaves，删除localhost,添加以下内容。</p>
+<blockquote>
+<p>[root@master  hadoop]$ vi slaves</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">master</span><br><span class="line"></span><br><span class="line">slave1</span><br><span class="line"></span><br><span class="line">slave2</span><br><span class="line"></span><br><span class="line">slave3</span><br></pre></td></tr></table></figure>
+<p>7、 修改mapred-env.sh</p>
+<blockquote>
+<p>[root@master hadoop]$ vi mapred-env.sh</p>
+<p>修改 export JAVA_HOME=/usr/local/jdk1.8.0_60</p>
+</blockquote>
+<p>8、 修改mapred-site.xml</p>
+<blockquote>
+<p>[root@master hadoop]# mv mapred-site.xml.template mapred-site.xml </p>
+<p>//修改名称</p>
+<p>[root@master hadoop]$ vi mapred-site.xml</p>
+</blockquote>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 指定mr运行在yarn上 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">name</span>&gt;</span>mapreduce.framework.name<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">value</span>&gt;</span>yarn<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>9、 修改yarn-env.sh</p>
+<blockquote>
+<p>[root@master hadoop]$ vi yarn-env.sh</p>
+<p>修改 export JAVA_HOME=/usr/local/jdk1.8.0_60</p>
+</blockquote>
+<p>10、 修改yarn-site.xml</p>
+<blockquote>
+<p>[root@master hadoop]$ vi yarn-site.xml</p>
+</blockquote>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- reducer获取数据的方式 --&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.nodemanager.aux-services<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>mapreduce_shuffle<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 指定YARN的ResourceManager的地址 --&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.resourcemanager.hostname<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>master<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>11 、分发hadoop到节点</p>
+<blockquote>
+<p>[admin@master module]# scp -r /usr/local/hadoop root@slave1:/usr/local/</p>
+<p>[admin@master module]# scp -r /usr/local/hadoop root@slave2:/usr/local/</p>
+<p>[admin@master module]# scp -r /usr/local/hadoop root@slave3:/usr/local/</p>
+</blockquote>
+<p>12、 配置环境变量</p>
+<blockquote>
+<p>[admin@node21 ~]$ sudo vi /etc/profile</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#set hadoop environment</span><br><span class="line"></span><br><span class="line">HADOOP_HOME=/usr/local/hadoop</span><br><span class="line"></span><br><span class="line">export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin</span><br></pre></td></tr></table></figure>
+<p>编译生效:  source  /etc/profile</p>
+<p>13、 启动集群</p>
+<p>13.1 如果集群是第一次启动，需要格式化namenode</p>
+<blockquote>
+<p>[root@master hadoop]$ hdfs namenode -format　</p>
+</blockquote>
+<p>13.2 启动Hdfs：</p>
+<blockquote>
+<p>[root@master ~]# start-dfs.sh</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Starting namenodes on [master]</span><br><span class="line">master: starting namenode, logging to /opt/module/hadoop-2.7.6/logs/hadoop-root-namenode-node21.out</span><br><span class="line">slave1: starting datanode, logging to /opt/module/hadoop-2.7.6/logs/hadoop-root-datanode-node21.out</span><br><span class="line">slave2: starting datanode, logging to /opt/module/hadoop-2.7.6/logs/hadoop-root-datanode-node22.out</span><br><span class="line">slave3: starting datanode, logging to /opt/module/hadoop-2.7.6/logs/hadoop-root-datanode-node23.out</span><br><span class="line">Starting secondary namenodes [node22]</span><br><span class="line">node22: starting secondarynamenode, logging to /opt/module/hadoop-2.7.6/logs/hadoop-root-secondarynamenode-node22.out</span><br></pre></td></tr></table></figure>
+<p>13.3 启动Yarn　</p>
+<p>注意：Namenode和ResourceManger如果不是同一台机器，不能在NameNode上启动 yarn，应该在ResouceManager所在的机器上启动yarn。</p>
+<blockquote>
+<p>[root@master ~]# start-yarn.sh</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">starting yarn daemons</span><br><span class="line">starting resourcemanager, logging to /opt/module/hadoop-2.7.6/logs/yarn-root-resourcemanager-node22.out</span><br><span class="line">master: starting nodemanager, logging to /opt/module/hadoop-2.7.6/logs/yarn-root-nodemanager-node21.out</span><br><span class="line">slave1: starting nodemanager, logging to /opt/module/hadoop-2.7.6/logs/yarn-root-nodemanager-node23.out</span><br><span class="line">slave2: starting nodemanager, logging to /opt/module/hadoop-2.7.6/logs/yarn-root-nodemanager-node22.out</span><br></pre></td></tr></table></figure>
+<p>13.4 jps查看进程</p>
+<blockquote>
+<p>[admin@master ~]# jps</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1440 NameNode</span><br><span class="line"></span><br><span class="line">1537 DataNode</span><br><span class="line"></span><br><span class="line">1811 NodeManager</span><br><span class="line"></span><br><span class="line">1912 Jps</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>[admin@slave1 ~]# jps</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">1730 Jps</span><br><span class="line">1339 ResourceManager</span><br><span class="line">1148 DataNode</span><br><span class="line">1198 SecondaryNameNode</span><br><span class="line">1439 NodeManager</span><br><span class="line">[admin@slave2 ~]# jps</span><br><span class="line">1362 Jps</span><br><span class="line">1149 DataNode</span><br><span class="line">1262 NodeManager</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>[admin@slave3 ~]# jps</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1362 Jps</span><br><span class="line">1149 DataNode</span><br><span class="line">1262 NodeManager</span><br></pre></td></tr></table></figure>
+<p>13.5 Hadoop启动停止方式</p>
+<blockquote>
+<p>stop-dfs.sh</p>
+<p>stop-yarn.sh</p>
+</blockquote>
+<p>14、 在浏览器访问hadoop 50070端口</p>
+<p>1)</p>
+<p> shell &gt; systemctl start firewalld 启动friewall</p>
+<p>shell &gt; systemctl status firewalld 查看firewall启动情况</p>
+<p>2）开放50070端口</p>
+<blockquote>
+<p>[root@master /]# firewall-cmd –add-port=50070/tcp</p>
+<p>success</p>
+<p>[root@master /]# firewall-cmd –permanent –add-port=50070/tcp</p>
+<p>success</p>
+<p>[root@master /]#firewall-cmd –reload</p>
+<p>[root@master /]# firewall-cmd –query-port=50070/tcp</p>
+<p>yes</p>
+</blockquote>
+<p>3) 在浏览器输入：<a href="http://192.168.19.138:50070" target="_blank" rel="noopener">http://192.168.19.138:50070</a></p>
+<p>15、 在浏览器访问hadoop 80088端口</p>
+<p>1 )关闭防火墙</p>
+<blockquote>
+<p>//临时关闭</p>
+<p>systemctl stop firewalld </p>
+<p>//禁止开机启动</p>
+<p>systemctl disable firewalld </p>
+<p>//查看防火墙状态</p>
+<p>systemctl status firewalld</p>
+</blockquote>
+<p>或者</p>
+<p>关闭防火墙</p>
+<blockquote>
+<p>firewall-cmd –reload #重启firewall</p>
+<p>systemctl stop firewalld.service #停止firewall</p>
+<p>systemctl disable firewalld.service #禁止firewall开机启动</p>
+<p>shutdown -r  重启机器 </p>
+<p>firewall-cmd –state #查看默认防火墙状态（关闭后显示notrunning，开启后显示running）</p>
+</blockquote>
+<p>16 、访问Hadoop 19888端口</p>
+<p>1）手动启动historyserver，关闭命令也给出.</p>
+<p>2）启动命令：mr-jobhistory-daemon.sh start historyserver</p>
+<p>3）关闭命令：mr-jobhistory-daemon.sh stop historyserver</p>
+<p>17、 测试(<a href="https://blog.csdn.net/sinat_34610625/article/details/66480325" target="_blank" rel="noopener">https://blog.csdn.net/sinat_34610625/article/details/66480325</a>)</p>
+<blockquote>
+<p>1) hadoop fs -mkdir /input</p>
+<p>2) hadoop fs -put README.txt /input</p>
+<p>3) hadoop fs -ls /input</p>
+<p>4) hadoop fs -cat /input/README.txt</p>
+<p>5) hadoop jar /usr/local/hadoop/share/hadoop/mapreduce/hadoop-</p>
+<p>mapreduce-examples-2.6.0-cdh5.12.1.jar wordcount /input /output</p>
+<p>6) hadoop fs -ls /output</p>
+<p>7) hadoop fs -cat /output/part-r-00000</p>
+</blockquote>
 
           <br>
 <p>limaodeng</p>
