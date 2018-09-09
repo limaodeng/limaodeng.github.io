@@ -71,26 +71,26 @@
 <blockquote>
 <p>ssh-keygen -t rsa</p>
 </blockquote>
-<p><img src="/2018/08/02/ssh免密配置/Hexo\source\picture\1.png" alt="1"></p>
+<p><img src="/ssh免密配置/1.png" alt="1"></p>
 <p>把公钥文件放入授权文件中</p>
 <blockquote>
 <p>cat id_rsa.pub &gt;&gt; authorized_keys </p>
 </blockquote>
-<p><img src="/2018/08/02/ssh免密配置/Hexo\source\picture\2.png" alt="2"></p>
+<p><img src="/ssh免密配置/2.png" alt="2"></p>
 <p>远程复制到save1</p>
 <blockquote>
 <p>scp ~/.ssh/authorized_keys slave1:~/.ssh/ </p>
 </blockquote>
 <p>上述命令如果是在slave1这个节点为初始状态时（未进行任何的ssh操作之前，       根目录下没有.ssh目录）。此时需要手动在slave1节点上，进行一次ssh操作，如：ssh slave1 </p>
-<p><img src="/2018/08/02/ssh免密配置/Hexo\source\picture\3.png" alt="3"></p>
+<p><img src="/ssh免密配置/3.png" alt="3"></p>
 <p>再次执行命令：scp ~/.ssh/authorized_keys slave1:~/.ssh/ 即可。</p>
 <p>此时在slave1节点中查看就有了节点1的认证文件：</p>
-<p><img src="/2018/08/02/ssh免密配置/Hexo\source\picture\4.png" alt="4"></p>
+<p><img src="/ssh免密配置/4.png" alt="4"></p>
 <h5 id="第二台机器（slave1）"><a href="#第二台机器（slave1）" class="headerlink" title="第二台机器（slave1）"></a>第二台机器（slave1）</h5><p>生成公钥文件</p>
 <blockquote>
 <p>ssh-keygen -t rsa</p>
 </blockquote>
-<h5 id=""><a href="#" class="headerlink" title=""></a><img src="/2018/08/02/ssh免密配置/Hexo\source\picture\5.png" alt="5"></h5><blockquote>
+<h5 id=""><a href="#" class="headerlink" title=""></a><img src="/ssh免密配置/5.png" alt="5"></h5><blockquote>
 <p>cat id_rsa.pub &gt;&gt; authorized_keys </p>
 <p>scp ~/.ssh/authorized_keys slave2:~/.ssh/</p>
 </blockquote>
@@ -109,7 +109,7 @@
 <p>scp ~/.ssh/authorized_keys slave2:~/.ssh/</p>
 </blockquote>
 <p>以上操作所有都完成之后，所有机器都可以相互免密的话，还需要检查每台机器的vi ~/.ssh/known_hosts文件是否含有四个主机的信息，如下图所示：</p>
-<p><img src="/2018/08/02/ssh免密配置/Hexo\source\picture\6.png" alt="6"></p>
+<p><img src="/ssh免密配置/6.png" alt="6"></p>
 <p>如果没有的话，比如master没有，则需要在该机器上重新执行一下ssh master命令，让其生成以上信息即可。</p>
 
           <br>
