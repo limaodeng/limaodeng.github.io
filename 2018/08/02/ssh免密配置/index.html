@@ -17,19 +17,13 @@
     <header>
   <a id='go-back-home' href='/'><img src='/images/scribble.png' alt='Home' width='53' height='59'></a>
   <p>limaodeng</p>
-  <p>Welcome to my blog.</p>
+  <p>limaodengcode@gmail.com</p>
 </header>
 
     <div id='container'>
       <div class='block'>
   
     <a class='main' href='/'>Home</a>
-  
-    <a class='main' href='/about'>About</a>
-  
-    <a class='main' href='/limaodengcode@gmail.com'>Email</a>
-  
-    <a class='main' href='https://github.com/limaodeng'>Github</a>
   
 </div>
 
@@ -56,46 +50,46 @@
             <div class='date'>2018-08-02</div>
             ssh免密配置
           </h1>
-          <h5 id="4台主机配置："><a href="#4台主机配置：" class="headerlink" title="4台主机配置："></a>4台主机配置：</h5><p>主机： master </p>
+          <h2 id="4台主机配置："><a href="#4台主机配置：" class="headerlink" title="4台主机配置："></a>4台主机配置：</h2><p>主机： master </p>
 <p>从机： slave1 </p>
 <p>从机： slave2 </p>
 <p>从机： slave3</p>
-<h5 id="增加ip地址映射"><a href="#增加ip地址映射" class="headerlink" title="增加ip地址映射"></a>增加ip地址映射</h5><blockquote>
+<h2 id="增加ip地址映射"><a href="#增加ip地址映射" class="headerlink" title="增加ip地址映射"></a>增加ip地址映射</h2><blockquote>
 <p><strong>vi /etc/hosts</strong>  </p>
 </blockquote>
 <p>192.168.19.138 master</p>
 <p>192.168.19.139 slave1</p>
 <p>192.168.19.140 slave2</p>
 <p>192.168.19.141 slave3</p>
-<h5 id="第一台机器（master）"><a href="#第一台机器（master）" class="headerlink" title="第一台机器（master）"></a>第一台机器（master）</h5><p>生成公钥密钥</p>
+<h2 id="第一台机器（master）"><a href="#第一台机器（master）" class="headerlink" title="第一台机器（master）"></a>第一台机器（master）</h2><p>生成公钥密钥</p>
 <blockquote>
 <p>ssh-keygen -t rsa</p>
 </blockquote>
-<p><img src="/ssh免密配置/1.png" alt="1"></p>
+<p><img src="/2018/08/02/ssh免密配置/1.png" alt="1"></p>
 <p>把公钥文件放入授权文件中</p>
 <blockquote>
 <p>cat id_rsa.pub &gt;&gt; authorized_keys </p>
 </blockquote>
-<p><img src="/ssh免密配置/2.png" alt="2"></p>
+<p><img src="/2018/08/02/ssh免密配置/2.png" alt="2"></p>
 <p>远程复制到save1</p>
 <blockquote>
 <p>scp ~/.ssh/authorized_keys slave1:~/.ssh/ </p>
 </blockquote>
 <p>上述命令如果是在slave1这个节点为初始状态时（未进行任何的ssh操作之前，       根目录下没有.ssh目录）。此时需要手动在slave1节点上，进行一次ssh操作，如：ssh slave1 </p>
-<p><img src="/ssh免密配置/3.png" alt="3"></p>
+<p><img src="/2018/08/02/ssh免密配置/3.png" alt="3"></p>
 <p>再次执行命令：scp ~/.ssh/authorized_keys slave1:~/.ssh/ 即可。</p>
 <p>此时在slave1节点中查看就有了节点1的认证文件：</p>
-<p><img src="/ssh免密配置/4.png" alt="4"></p>
-<h5 id="第二台机器（slave1）"><a href="#第二台机器（slave1）" class="headerlink" title="第二台机器（slave1）"></a>第二台机器（slave1）</h5><p>生成公钥文件</p>
+<p><img src="/2018/08/02/ssh免密配置/4.png" alt="4"></p>
+<h2 id="第二台机器（slave1）"><a href="#第二台机器（slave1）" class="headerlink" title="第二台机器（slave1）"></a>第二台机器（slave1）</h2><p>生成公钥文件</p>
 <blockquote>
 <p>ssh-keygen -t rsa</p>
 </blockquote>
-<h5 id=""><a href="#" class="headerlink" title=""></a><img src="/ssh免密配置/5.png" alt="5"></h5><blockquote>
+<h5 id=""><a href="#" class="headerlink" title=""></a><img src="/2018/08/02/ssh免密配置/5.png" alt="5"></h5><blockquote>
 <p>cat id_rsa.pub &gt;&gt; authorized_keys </p>
 <p>scp ~/.ssh/authorized_keys slave2:~/.ssh/</p>
 </blockquote>
 <p>此时还是会出现第一台机器一样的问题，解决办法相同。</p>
-<h5 id="第三台机器-slave2"><a href="#第三台机器-slave2" class="headerlink" title="第三台机器(slave2)"></a><strong>第三台机器(slave2)</strong></h5><blockquote>
+<h2 id="第三台机器-slave2"><a href="#第三台机器-slave2" class="headerlink" title="第三台机器(slave2)"></a><strong>第三台机器(slave2)</strong></h2><blockquote>
 <p>ssh-keygen -t rsa</p>
 <p>cat id_rsa.pub &gt;&gt; authorized_keys</p>
 <p>scp ~/.ssh/authorized_keys slave3:~/.ssh/</p>
@@ -109,7 +103,7 @@
 <p>scp ~/.ssh/authorized_keys slave2:~/.ssh/</p>
 </blockquote>
 <p>以上操作所有都完成之后，所有机器都可以相互免密的话，还需要检查每台机器的vi ~/.ssh/known_hosts文件是否含有四个主机的信息，如下图所示：</p>
-<p><img src="/ssh免密配置/6.png" alt="6"></p>
+<p><img src="/2018/08/02/ssh免密配置/6.png" alt="6"></p>
 <p>如果没有的话，比如master没有，则需要在该机器上重新执行一下ssh master命令，让其生成以上信息即可。</p>
 
           <br>
@@ -122,12 +116,6 @@
       <div class='block'>
   
     <a class='main' href='/'>Home</a>
-  
-    <a class='main' href='/about'>About</a>
-  
-    <a class='main' href='/limaodengcode@gmail.com'>Email</a>
-  
-    <a class='main' href='https://github.com/limaodeng'>Github</a>
   
 </div>
 
