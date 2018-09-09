@@ -1,0 +1,81 @@
+<html>
+  <head>
+    <title>正则表达式练习 - limaodeng</title>
+    <link href='/images/fav.png' rel='shortcut icon'>
+<link href='' rel='alternate' type='application/rss+xml'>
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/highlight.css">
+<link rel="stylesheet" href="/css/responsive.css">
+<script src="/js/jquery.js"></script>
+<script src="/js/basics.js"></script>
+<meta content='width=device-width, initial-scale=1.0, user-scalable=no' name='viewport'>
+<meta content='text/html; charset=utf-8' http-equiv='content-type'>
+
+
+  </head>
+  <body>
+    <header>
+  <a id='go-back-home' href='/'><img src='/images/scribble.png' alt='Home' width='53' height='59'></a>
+  <p>limaodeng</p>
+  <p>limaodengcode@gmail.com</p>
+</header>
+
+    <div id='container'>
+      <div class='block'>
+  
+    <a class='main' href='/'>Home</a>
+  
+</div>
+
+      <section class='paging'>
+  
+    <div class='left'>
+      <a href='/2018/08/25/正则表达式的运用/'>
+        ‹
+      </a>
+    </div>
+  
+  
+    <div class='right'>
+      <a href='/2018/08/23/Java IO操作/'>
+        ›
+      </a>
+    </div>
+  
+</section>
+
+      <div class='content'>
+        <section class='post'>
+          <h1>
+            <div class='date'>2018-08-23</div>
+            正则表达式练习
+          </h1>
+          <blockquote>
+<p>简单进行正则表达式练习。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.maoge.study.regEx;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.regex.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RegEx</span> </span>&#123;</span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testReg</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		String str = <span class="string">"张[一二三]丰"</span>;</span><br><span class="line">        <span class="comment">// [abc]表示的匹配a或b或c [0-9] 所有数字[a-z]小写英文字母</span></span><br><span class="line">								</span><br><span class="line">        <span class="comment">// [A-Z]大写的英文字母 [a-e] a,b,c,d,e</span></span><br><span class="line">        </span><br><span class="line">		str = <span class="string">"张.&#123;2&#125;丰"</span>;</span><br><span class="line">		Pattern pattern = Pattern.compile(str);</span><br><span class="line">		Matcher matcher = pattern.matcher(<span class="string">"张一y丰"</span>);</span><br><span class="line">		System.out.println(matcher.matches() ? <span class="string">"成功"</span> : <span class="string">"失败"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testFind</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		Pattern pattern = Pattern.compile(<span class="string">"张.丰"</span>);</span><br><span class="line">		String str = <span class="string">"我叫张三丰，张2丰是小狗"</span>;</span><br><span class="line">		Matcher matcher = pattern.matcher(str);</span><br><span class="line">		<span class="keyword">int</span> index = <span class="number">0</span>;</span><br><span class="line">		System.out.println(matcher.find(index) + <span class="string">"\t"</span> + <span class="number">2223333</span>);</span><br><span class="line"></span><br><span class="line">		<span class="keyword">while</span> (matcher.find(index) &amp;&amp; index &lt; str.length()) &#123;</span><br><span class="line">			<span class="keyword">int</span> iStart = matcher.start();</span><br><span class="line">			<span class="keyword">int</span> iStop = matcher.end();</span><br><span class="line">			System.out.println(iStart + <span class="string">"\t  "</span> + iStop + str.substring(iStart, iStop));</span><br><span class="line"></span><br><span class="line">			index = iStop + <span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testSpecialChar</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		String str = <span class="string">"小狗电话：123456789"</span>;</span><br><span class="line">		<span class="comment">// 贪婪匹配</span></span><br><span class="line"></span><br><span class="line">		Pattern pattern = Pattern.compile(<span class="string">"(\\d)?"</span>);</span><br><span class="line">		Matcher matcher = pattern.matcher(str);</span><br><span class="line">		<span class="keyword">int</span> index = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">int</span> i = <span class="number">0</span>;<span class="comment">// 控制循环的次数，只循环3次</span></span><br><span class="line"></span><br><span class="line">		<span class="keyword">while</span> (matcher.find(index) &amp;&amp; index &lt; str.length()) &#123;</span><br><span class="line">			<span class="keyword">int</span> iStart = matcher.start();<span class="comment">// 13</span></span><br><span class="line">			<span class="keyword">int</span> iStop = matcher.end();<span class="comment">// 14</span></span><br><span class="line">			System.out.println(iStart + <span class="string">"\t  "</span> + iStop + <span class="string">"\t"</span> + str.substring(iStart, iStop));</span><br><span class="line"></span><br><span class="line">			index = iStop;</span><br><span class="line"></span><br><span class="line">			i++;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">	 * 电话我：+861013712222222 电话： 013712222222 12 电话： 13712345678 11</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 * (+8610\\d&#123;11&#125;) | (0?\\d&#123;11&#125;)</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 * 毛泽东 泽东 东 毛?泽东|东 我爱我们的领袖毛泽东同志</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line"></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testPhone</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		String patStr = <span class="string">"(\\+8610\\d&#123;11&#125;)|(0?\\d&#123;11&#125;)"</span>;</span><br><span class="line">		String str = <span class="string">"电话我：+861013712222222 "</span>;</span><br><span class="line">		str = <span class="string">"电话我： 013712222222"</span>;</span><br><span class="line"></span><br><span class="line">		Pattern pattern = Pattern.compile(patStr);</span><br><span class="line">		Matcher matcher = pattern.matcher(str);</span><br><span class="line">		<span class="keyword">if</span> (matcher.find()) &#123;</span><br><span class="line">			System.out.println(<span class="string">"成功！"</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testGroup</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		String str = <span class="string">"人111222张丰loveDog"</span>;</span><br><span class="line">		String patStr = <span class="string">"人((\\d+)(张.?丰)([a-zA-Z]+))"</span>;</span><br><span class="line">		Pattern pattern = Pattern.compile(patStr);</span><br><span class="line">		Matcher matcher = pattern.matcher(str);</span><br><span class="line"></span><br><span class="line">		<span class="keyword">int</span> count = matcher.groupCount();</span><br><span class="line">		matcher.find();</span><br><span class="line">		System.out.println(<span class="string">"999933333:::::"</span> + count);</span><br><span class="line">		System.out.println(matcher.group());</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; count; i++) &#123;</span><br><span class="line">			System.out.println(matcher.group(i));</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          <br>
+<p>limaodeng</p>
+<p><img src='/images/scribble3.png' alt='scribble'></p>
+
+        </section>
+      </div>
+      
+      <div class='block'>
+  
+    <a class='main' href='/'>Home</a>
+  
+</div>
+
+    </div>
+    <footer>
+  <span class='muted'>&copy; limaodeng. All Rights Reserved.</span><br>
+  <a href='https://github.com/saintwinkle/hexo-theme-scribble' class='muted'>built with Hexo using limaodeng theme</a>
+  <br>
+  <br>
+  <img src='/images/scribble2.png' alt='scribble' />
+</footer>
+
+  </body>
+</html>
