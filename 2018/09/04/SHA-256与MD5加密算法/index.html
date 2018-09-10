@@ -1,0 +1,78 @@
+<html>
+  <head>
+    <title>SHA-256与MD5加密算法 - limaodeng</title>
+    <link href='/images/fav.png' rel='shortcut icon'>
+<link href='' rel='alternate' type='application/rss+xml'>
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/highlight.css">
+<link rel="stylesheet" href="/css/responsive.css">
+<script src="/js/jquery.js"></script>
+<script src="/js/basics.js"></script>
+<meta content='width=device-width, initial-scale=1.0, user-scalable=no' name='viewport'>
+<meta content='text/html; charset=utf-8' http-equiv='content-type'>
+
+
+  </head>
+  <body>
+    <header>
+  <a id='go-back-home' href='/'><img src='/images/scribble.png' alt='Home' width='53' height='59'></a>
+  <p>limaodeng</p>
+  <p>limaodengcode@gmail.com</p>
+</header>
+
+    <div id='container'>
+      <div class='block'>
+  
+    <a class='main' href='/'>Home</a>
+  
+</div>
+
+      <section class='paging'>
+  
+    <div class='left'>
+      <a href='/2018/09/06/判断素数的最高效方法/'>
+        ‹
+      </a>
+    </div>
+  
+  
+    <div class='right'>
+      <a href='/2018/09/04/加密算法/'>
+        ›
+      </a>
+    </div>
+  
+</section>
+
+      <div class='content'>
+        <section class='post'>
+          <h1>
+            <div class='date'>2018-09-04</div>
+            SHA-256与MD5加密算法
+          </h1>
+          <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.gxnu.bigdata.study.md5;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.FileInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStream;</span><br><span class="line"><span class="keyword">import</span> java.nio.file.Files;</span><br><span class="line"><span class="keyword">import</span> java.nio.file.Paths;</span><br><span class="line"><span class="keyword">import</span> java.security.DigestInputStream;</span><br><span class="line"><span class="keyword">import</span> java.security.MessageDigest;</span><br><span class="line"><span class="keyword">import</span> java.security.NoSuchAlgorithmException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Md5Ex</span> </span>&#123;</span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">SimpleMd5</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">		<span class="keyword">byte</span>[] by = Files.readAllBytes(Paths.get(<span class="string">"E:"</span>,<span class="string">"Dog.java"</span>));</span><br><span class="line">		MessageDigest md =  MessageDigest.getInstance(<span class="string">"SHA-256"</span>);<span class="comment">//SHA-256算法,MD5算法都可以。</span></span><br><span class="line">		md.update(by);</span><br><span class="line">		<span class="keyword">byte</span>[] digest = md.digest();</span><br><span class="line">		</span><br><span class="line">		StringBuilder sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">byte</span> b:digest)&#123;</span><br><span class="line">			String hexString = Integer.toHexString(b);</span><br><span class="line">			sb.append(hexString);</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println(sb);</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">ComplexMd5</span><span class="params">()</span></span>&#123;</span><br><span class="line">		MessageDigest md  = <span class="keyword">null</span>;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			 md  = MessageDigest.getInstance(<span class="string">"SHA-256"</span>);<span class="comment">//SHA-256算法,MD5算法都可以。</span></span><br><span class="line">		&#125; <span class="keyword">catch</span> (NoSuchAlgorithmException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">try</span>(FileInputStream fi = <span class="keyword">new</span> FileInputStream(<span class="string">"E:/Dog.java"</span>);</span><br><span class="line">				) &#123;</span><br><span class="line">			<span class="keyword">byte</span>[] arr = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">4</span>];</span><br><span class="line">			<span class="keyword">int</span> len = -<span class="number">1</span>;</span><br><span class="line">			<span class="keyword">while</span>((len=fi.read(arr))&gt;<span class="number">0</span>)&#123;</span><br><span class="line">				md.update(arr,<span class="number">0</span>,len);</span><br><span class="line">				<span class="comment">//System.out.println(new String(arr,0,len));</span></span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">byte</span>[] digest = md.digest();</span><br><span class="line">			</span><br><span class="line">			StringBuilder sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">byte</span> by:digest)&#123;</span><br><span class="line">				String hs = Integer.toHexString(by);</span><br><span class="line">				sb.append(hs);</span><br><span class="line">			&#125;</span><br><span class="line">			System.out.println(sb);</span><br><span class="line">			</span><br><span class="line">			</span><br><span class="line">		&#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;		</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testDigsterSteam</span><span class="params">()</span></span>&#123;</span><br><span class="line">		MessageDigest md=<span class="keyword">null</span>;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			md = MessageDigest.getInstance(<span class="string">"SHA-256"</span>);</span><br><span class="line">		&#125; <span class="keyword">catch</span> (NoSuchAlgorithmException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">try</span>(InputStream nis = Files.newInputStream(Paths.get(<span class="string">"E:"</span>,<span class="string">"Dog.java"</span>));</span><br><span class="line">			DigestInputStream dis = <span class="keyword">new</span> DigestInputStream(nis,md );</span><br><span class="line">			) &#123;</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">byte</span>[] arr = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">5</span>];</span><br><span class="line">			<span class="keyword">int</span> len = -<span class="number">1</span>;</span><br><span class="line">			<span class="keyword">while</span>((len = dis.read(arr))&gt;<span class="number">0</span>)&#123;<span class="comment">//读出来，内部执行md.update(arr,0,len);</span></span><br><span class="line">				<span class="comment">//System.out.println(new String(arr,0,len));</span></span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">byte</span>[] digest = md.digest();</span><br><span class="line">			</span><br><span class="line">			StringBuilder sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;digest.length;i+=<span class="number">4</span>)&#123;</span><br><span class="line">				<span class="keyword">int</span> temp = ((digest[i]&lt;&lt;<span class="number">4</span>)|digest[i+<span class="number">1</span>]);</span><br><span class="line">				temp = ((temp&lt;&lt;<span class="number">4</span>)|digest[i+<span class="number">2</span>]);</span><br><span class="line">				temp = ((temp&lt;&lt;<span class="number">4</span>)|digest[i+<span class="number">3</span>]);</span><br><span class="line">				</span><br><span class="line">				String hs = Integer.toHexString(temp);</span><br><span class="line">				sb.append(hs);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="comment">/*for(byte by:digest)&#123;</span></span><br><span class="line"><span class="comment">				String hs = Integer.toHexString(by);</span></span><br><span class="line"><span class="comment">				sb.append(hs);</span></span><br><span class="line"><span class="comment">			&#125;*/</span></span><br><span class="line">			System.out.println(sb);</span><br><span class="line">			System.out.println(<span class="keyword">this</span>.transform(sb));</span><br><span class="line">		&#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">private</span> String <span class="title">transform</span><span class="params">(StringBuilder s)</span> </span>&#123;</span><br><span class="line">		StringBuilder sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;s.length()-<span class="number">2</span>;i+=<span class="number">2</span>)&#123;</span><br><span class="line">			sb.append(s.charAt(i)).append(s.charAt(i+<span class="number">1</span>)).append(<span class="string">":"</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		sb.append(s.charAt(s.length()-<span class="number">2</span>)).append(s.charAt(s.length()-<span class="number">1</span>));</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">return</span> sb.toString();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          <br>
+<p>limaodeng</p>
+<p><img src='/images/scribble3.png' alt='scribble'></p>
+
+        </section>
+      </div>
+      
+      <div class='block'>
+  
+    <a class='main' href='/'>Home</a>
+  
+</div>
+
+    </div>
+    <footer>
+  <span class='muted'>&copy; limaodeng. All Rights Reserved.</span><br>
+  <a href='https://github.com/saintwinkle/hexo-theme-scribble' class='muted'>built with Hexo using limaodeng theme</a>
+  <br>
+  <br>
+  <img src='/images/scribble2.png' alt='scribble' />
+</footer>
+
+  </body>
+</html>
