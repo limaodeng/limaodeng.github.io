@@ -1,0 +1,78 @@
+<html>
+  <head>
+    <title>Spark连接数据库 - limaodeng</title>
+    <link href='/images/fav.png' rel='shortcut icon'>
+<link href='' rel='alternate' type='application/rss+xml'>
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/highlight.css">
+<link rel="stylesheet" href="/css/responsive.css">
+<script src="/js/jquery.js"></script>
+<script src="/js/basics.js"></script>
+<meta content='width=device-width, initial-scale=1.0, user-scalable=no' name='viewport'>
+<meta content='text/html; charset=utf-8' http-equiv='content-type'>
+
+
+  </head>
+  <body>
+    <header>
+  <a id='go-back-home' href='/'><img src='/images/scribble.png' alt='Home' width='53' height='59'></a>
+  <p>limaodeng</p>
+  <p>limaodengcode@gmail.com</p>
+</header>
+
+    <div id='container'>
+      <div class='block'>
+  
+    <a class='main' href='/'>Home</a>
+  
+</div>
+
+      <section class='paging'>
+  
+    <div class='left'>
+      <a href='/2018/09/06/判断素数的最高效方法/'>
+        ‹
+      </a>
+    </div>
+  
+  
+    <div class='right'>
+      <a href='/2018/09/04/简单练习Scala/'>
+        ›
+      </a>
+    </div>
+  
+</section>
+
+      <div class='content'>
+        <section class='post'>
+          <h1>
+            <div class='date'>2018-09-04</div>
+            Spark连接数据库
+          </h1>
+          <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.spark.rdd.<span class="type">JdbcRDD</span>;</span><br><span class="line"><span class="keyword">import</span> java.sql._</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> rdd = <span class="keyword">new</span> <span class="type">JdbcRDD</span>(sc, ()=&gt;&#123;<span class="type">Class</span>.forName(<span class="string">"com.mysql.jdbc.Driver"</span>);<span class="type">DriverManager</span>.getConnection(<span class="string">"jdbc:mysql://127.0.0.1:3306/test"</span>,<span class="string">"root"</span>,<span class="string">"dlmao"</span>)&#125;,     <span class="string">" SELECT userName,pword FROM myUser WHERE userid&lt;=? and useraid&gt;=? "</span>, <span class="number">1</span>, <span class="number">4</span>, <span class="number">2</span>, (r:<span class="type">ResultSet</span>)=&gt;&#123;r. getString (<span class="number">1</span>)+<span class="string">"::"</span>+r.getString(<span class="number">2</span>)&#125;)</span><br></pre></td></tr></table></figure>
+
+          <br>
+<p>limaodeng</p>
+<p><img src='/images/scribble3.png' alt='scribble'></p>
+
+        </section>
+      </div>
+      
+      <div class='block'>
+  
+    <a class='main' href='/'>Home</a>
+  
+</div>
+
+    </div>
+    <footer>
+  <span class='muted'>&copy; limaodeng. All Rights Reserved.</span><br>
+  <a href='https://github.com/saintwinkle/hexo-theme-scribble' class='muted'>built with Hexo using limaodeng theme</a>
+  <br>
+  <br>
+  <img src='/images/scribble2.png' alt='scribble' />
+</footer>
+
+  </body>
+</html>
