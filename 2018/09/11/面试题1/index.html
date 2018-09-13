@@ -1,0 +1,81 @@
+<html>
+  <head>
+    <title>面试题1 - limaodeng</title>
+    <link href='/images/fav.png' rel='shortcut icon'>
+<link href='' rel='alternate' type='application/rss+xml'>
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/highlight.css">
+<link rel="stylesheet" href="/css/responsive.css">
+<script src="/js/jquery.js"></script>
+<script src="/js/basics.js"></script>
+<meta content='width=device-width, initial-scale=1.0, user-scalable=no' name='viewport'>
+<meta content='text/html; charset=utf-8' http-equiv='content-type'>
+
+
+  </head>
+  <body>
+    <header>
+  <a id='go-back-home' href='/'><img src='/images/scribble.png' alt='Home' width='53' height='59'></a>
+  <p>limaodeng</p>
+  <p>limaodengcode@gmail.com</p>
+</header>
+
+    <div id='container'>
+      <div class='block'>
+  
+    <a class='main' href='/'>Home</a>
+  
+</div>
+
+      <section class='paging'>
+  
+    <div class='left'>
+      <a href='/2018/09/12/面试题2/'>
+        ‹
+      </a>
+    </div>
+  
+  
+    <div class='right'>
+      <a href='/2018/09/09/Jdbc review/'>
+        ›
+      </a>
+    </div>
+  
+</section>
+
+      <div class='content'>
+        <section class='post'>
+          <h1>
+            <div class='date'>2018-09-11</div>
+            面试题1
+          </h1>
+          <blockquote>
+<p>1、编写一个程序，将a.txt文件中的单词与b.txt文件中的单词交替合并到c.txt文件中，a.txt文件中的单词用回车符分隔，b.txt文件中用回车或空格进行分隔。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.maoge;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.FileReader;</span><br><span class="line"><span class="keyword">import</span> java.io.FileWriter;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyCombine</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String []args)</span><span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">        <span class="keyword">char</span>[] ca = <span class="keyword">new</span> <span class="keyword">char</span>[]&#123;<span class="string">'\n'</span>&#125;;</span><br><span class="line">        <span class="keyword">char</span>[] cb = <span class="keyword">new</span> <span class="keyword">char</span>[]&#123;<span class="string">'\n'</span>,<span class="string">' '</span>&#125;;</span><br><span class="line">        FileManager a = <span class="keyword">new</span> FileManager(<span class="string">"D:\\IDEA\\workspace\\file\\a.txt"</span>,ca);</span><br><span class="line">        FileManager b = <span class="keyword">new</span> FileManager(<span class="string">"D:\\IDEA\\workspace\\file\\b.txt"</span>,cb);</span><br><span class="line">        FileWriter fw = <span class="keyword">new</span> FileWriter(<span class="string">"D:\\IDEA\\workspace\\file\\c.txt"</span>);</span><br><span class="line">        String aword = <span class="keyword">null</span>;</span><br><span class="line">        String bword = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">while</span> ((aword=a.nextWord())!=<span class="keyword">null</span>)&#123;</span><br><span class="line">            fw.write(aword+<span class="string">"\n"</span>);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> ((bword=b.nextWord())!=<span class="keyword">null</span>)&#123;</span><br><span class="line">                fw.write(bword+<span class="string">"\n"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> ((bword=b.nextWord())!=<span class="keyword">null</span>)&#123;</span><br><span class="line">            fw.write(bword+<span class="string">"\n"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        fw.close();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">FileManager</span></span>&#123;</span><br><span class="line">       String words[] = <span class="keyword">null</span>;</span><br><span class="line">       <span class="keyword">int</span> position = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">       <span class="function"><span class="keyword">public</span> <span class="title">FileManager</span><span class="params">(String f, <span class="keyword">char</span>[] c)</span><span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">           File file = <span class="keyword">new</span> File(f);</span><br><span class="line">           FileReader reader = <span class="keyword">new</span> FileReader(file);</span><br><span class="line">           <span class="keyword">char</span>[] buf = <span class="keyword">new</span> <span class="keyword">char</span>[(<span class="keyword">int</span>)file.length()];</span><br><span class="line">           <span class="keyword">int</span> len = reader.read(buf);</span><br><span class="line">           String result = <span class="keyword">new</span> String(buf,<span class="number">0</span>,len);</span><br><span class="line"></span><br><span class="line">           String regex = <span class="keyword">null</span>;</span><br><span class="line">           <span class="keyword">if</span>(c.length==<span class="number">1</span>)&#123;</span><br><span class="line">               regex = <span class="string">""</span>+c[<span class="number">0</span>];</span><br><span class="line">           &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">               regex = <span class="string">""</span>+c[<span class="number">0</span>]+<span class="string">"|"</span>+c[<span class="number">1</span>];</span><br><span class="line">           &#125;</span><br><span class="line"></span><br><span class="line">           words = result.split(regex);</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="function"><span class="keyword">public</span> String  <span class="title">nextWord</span><span class="params">()</span></span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(position==words.length)&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> words[position++];</span><br><span class="line">            &#125;</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          <br>
+<p>limaodeng</p>
+<p><img src='/images/scribble3.png' alt='scribble'></p>
+
+        </section>
+      </div>
+      
+      <div class='block'>
+  
+    <a class='main' href='/'>Home</a>
+  
+</div>
+
+    </div>
+    <footer>
+  <span class='muted'>&copy; limaodeng. All Rights Reserved.</span><br>
+  <a href='https://github.com/saintwinkle/hexo-theme-scribble' class='muted'>built with Hexo using limaodeng theme</a>
+  <br>
+  <br>
+  <img src='/images/scribble2.png' alt='scribble' />
+</footer>
+
+  </body>
+</html>
