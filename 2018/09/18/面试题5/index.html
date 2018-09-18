@@ -1,0 +1,75 @@
+<html>
+  <head>
+    <title>面试题5 - limaodeng</title>
+    <link href='/images/fav.png' rel='shortcut icon'>
+<link href='' rel='alternate' type='application/rss+xml'>
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/highlight.css">
+<link rel="stylesheet" href="/css/responsive.css">
+<script src="/js/jquery.js"></script>
+<script src="/js/basics.js"></script>
+<meta content='width=device-width, initial-scale=1.0, user-scalable=no' name='viewport'>
+<meta content='text/html; charset=utf-8' http-equiv='content-type'>
+
+
+  </head>
+  <body>
+    <header>
+  <a id='go-back-home' href='/'><img src='/images/scribble.png' alt='Home' width='53' height='59'></a>
+  <p>limaodeng</p>
+  <p>limaodengcode@gmail.com</p>
+</header>
+
+    <div id='container'>
+      <div class='block'>
+  
+    <a class='main' href='/'>Home</a>
+  
+</div>
+
+      <section class='paging'>
+  
+  
+    <div class='right'>
+      <a href='/2018/09/13/面试题4/'>
+        ›
+      </a>
+    </div>
+  
+</section>
+
+      <div class='content'>
+        <section class='post'>
+          <h1>
+            <div class='date'>2018-09-18</div>
+            面试题5
+          </h1>
+          <blockquote>
+<p>从类似如下的文本文件中读取出所有的姓名，并打印出重复的姓名和重复的次数，并按重复次数排序：<br>1,张三,28<br>2,李四,35<br>3,张三,28<br>4,王五,35<br>5,张三,28<br>6,李四,35<br>7,赵六,28<br>8,田七,35</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.maoge;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.nio.file.Files;</span><br><span class="line"><span class="keyword">import</span> java.nio.file.Paths;</span><br><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyGetName</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        List&lt;String&gt; lines = Files.readAllLines(Paths.get(<span class="string">"D:\\IDEA\\workspace\\file\\info.txt"</span>));</span><br><span class="line"></span><br><span class="line">        Map map = <span class="keyword">new</span> HashMap();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (String line : lines) &#123;</span><br><span class="line">            dealLine(map, line);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        sortResult(map);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line">        <span class="keyword">public</span> String name;</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">int</span> value;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">User</span><span class="params">(String name, <span class="keyword">int</span> value)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.name = name;</span><br><span class="line">            <span class="keyword">this</span>.value = value;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">dealLine</span><span class="params">(Map map, String line)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="string">""</span>.equals(line.trim())) &#123;</span><br><span class="line">            String[] info = line.split(<span class="string">","</span>);</span><br><span class="line">            String name = info[<span class="number">1</span>];</span><br><span class="line">            Integer value = (Integer) map.get(name);</span><br><span class="line">            <span class="keyword">if</span> (value == <span class="keyword">null</span>) value = <span class="number">0</span>;</span><br><span class="line">            map.put(name, value + <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@SuppressWarnings</span>(<span class="string">"unchecked"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sortResult</span><span class="params">(Map map)</span> </span>&#123;</span><br><span class="line">        TreeSet set = <span class="keyword">new</span> TreeSet(</span><br><span class="line">                <span class="keyword">new</span> Comparator() &#123;</span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(Object o1, Object o2)</span> </span>&#123;</span><br><span class="line">                        User u1 = (User) o1;</span><br><span class="line">                        User u2 = (User) o2;</span><br><span class="line">                        <span class="keyword">if</span> (u1.value &lt; u2.value) &#123;</span><br><span class="line">                            <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">                        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (u1.value &gt; u2.value) &#123;</span><br><span class="line">                            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">                        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                            <span class="keyword">return</span> u1.name.compareTo(u2.name);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">        );</span><br><span class="line"></span><br><span class="line">        Iterator iterator = map.keySet().iterator();</span><br><span class="line">        <span class="keyword">while</span> (iterator.hasNext()) &#123;</span><br><span class="line">            String name = (String) iterator.next();</span><br><span class="line">            Integer value = (Integer) map.get(name);</span><br><span class="line">            <span class="keyword">if</span> (value &gt; <span class="number">1</span>) &#123;<span class="comment">//value值在1以下才输出</span></span><br><span class="line">                set.add(<span class="keyword">new</span> User(name, value));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        printResults(set);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printResults</span><span class="params">(TreeSet set)</span> </span>&#123;</span><br><span class="line">        Iterator iterator = set.iterator();</span><br><span class="line">        <span class="keyword">while</span> (iterator.hasNext()) &#123;</span><br><span class="line">            User user = (User) iterator.next();</span><br><span class="line">            System.out.println(user.name + <span class="string">"  "</span> + user.value);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          <br>
+<p>limaodeng</p>
+<p><img src='/images/scribble3.png' alt='scribble'></p>
+
+        </section>
+      </div>
+      
+      <div class='block'>
+  
+    <a class='main' href='/'>Home</a>
+  
+</div>
+
+    </div>
+    <footer>
+  <span class='muted'>&copy; limaodeng. All Rights Reserved.</span><br>
+  <a href='https://github.com/saintwinkle/hexo-theme-scribble' class='muted'>built with Hexo using limaodeng theme</a>
+  <br>
+  <br>
+  <img src='/images/scribble2.png' alt='scribble' />
+</footer>
+
+  </body>
+</html>
